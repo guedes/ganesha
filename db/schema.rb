@@ -10,7 +10,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110215170221) do
+ActiveRecord::Schema.define(:version => 20110220141224) do
+
+  create_table "instances", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "port",        :default => 5432
+    t.integer  "server_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "servers", :force => true do |t|
     t.string   "name"

@@ -1,4 +1,6 @@
 Ganesha::Application.routes.draw do
+  resources :instances
+
   resources :servers
 
   # The priority is based upon order of creation:

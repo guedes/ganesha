@@ -1,0 +1,13 @@
+<% title @instance.name %>
+
+<p id="notice"><%= notice %></p>
+
+<h1><%= @instance.name %></h1>
+<h3><%= @instance.formatted_port %></h3>
+
+<p>
+ <%= @instance.description %>
+</p>
+
+<%= link_to 'Edit', edit_instance_path(@instance) %> |
+<%= link_to 'Back', instances_path %>

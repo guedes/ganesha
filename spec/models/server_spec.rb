@@ -36,7 +36,7 @@ describe Server do
   it "should shows a formatted 'hostname ( ip address )' for hostname" do
     server = Factory(:server)
 
-    server.formatted_hostname.should == "#{server.host_address} (#{server.ip_address})"
+    server.formatted_hostname.should be_eql("#{server.host_address} (#{server.ip_address})")
   end
 
   it "should found a valid ip for host_address" do
@@ -44,7 +44,7 @@ describe Server do
 
     server.save!
 
-    server.ip_address.should == "127.0.0.1"
+    server.ip_address.should be_eql("127.0.0.1")
   end
 
   it "should require a valid hostname, fqdn in host_address that resolves to ip address" do

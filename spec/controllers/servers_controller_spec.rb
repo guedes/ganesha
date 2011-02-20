@@ -133,10 +133,10 @@ describe ServersController do
 
         @server.reload
 
-        @server.name.should == @server_attr[:name]
-        @server.description.should == @server_attr[:description]
-        @server.host_address.should == @server_attr[:host_address]
-        @server.ip_address.should == assigns(:server).ip_address
+        @server.name.should         be_eql(@server_attr[:name])
+        @server.description.should  be_eql(@server_attr[:description])
+        @server.host_address.should be_eql(@server_attr[:host_address])
+        @server.ip_address.should   be_eql(assigns(:server).ip_address)
       end
 
       it "should have a flash message" do

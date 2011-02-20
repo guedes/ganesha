@@ -1,10 +1,11 @@
 class Server < ActiveRecord::Base
+  has_many :instances
+  
   before_save :populate_ip_address
 
   validates :name, :presence => true, :uniqueness => true
   validates :description, :presence => true
   validates :host_address, :presence => true, :uniqueness => true
-
 
   def formatted_hostname
     "#{host_address} (#{ip_address})"
