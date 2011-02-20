@@ -1,0 +1,13 @@
+<% title @server.name %>
+
+<p id="notice"><%= notice %></p>
+
+<h1><%= @server.name %></h1>
+<h3><%= @server.formatted_hostname %></h3>
+
+<p>
+<%= @server.description %>
+</p>
+
+<%= link_to 'Edit', edit_server_path(@server) %> |
+<%= link_to 'Back', servers_path %>
