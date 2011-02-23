@@ -1,7 +1,10 @@
 Ganesha::Application.routes.draw do
-  resources :instances
+  devise_for :admins
 
+  resources :instances
   resources :servers
+
+  root :to => "servers#index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
