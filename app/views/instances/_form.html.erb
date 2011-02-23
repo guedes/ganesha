@@ -15,7 +15,7 @@
     <%= f.input :name %>
     <%= f.input :description %>
     <%= f.input :port %>
-    <%= f.association :server %>
+    <%= f.association :server, :include_blank => false %>
   </div>
 
   <div class="actions">
