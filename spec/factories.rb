@@ -10,3 +10,9 @@ Factory.define :instance do |f|
   f.port 5432
   f.association :server 
 end
+
+Factory.define :database do |f|
+  f.name "mydatabase"
+  f.description "My Cool Database :D"
+  f.association :instance
+end

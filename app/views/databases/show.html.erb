@@ -1,0 +1,13 @@
+<% title @database.name %>
+
+<p id="notice"><%= notice %></p>
+
+<h1><%= @database.name %></h1>
+<h3><%= @database.formatted_jdbc_string %></h3>
+
+<p>
+ <%= @database.description %>
+</p>
+
+<%= link_to 'Edit', edit_database_path(@database) %> |
+<%= link_to 'Back', databases_path %>

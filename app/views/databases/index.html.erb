@@ -1,0 +1,27 @@
+<h1>Listing databases</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Instance</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @databases.each do |database| %>
+  <tr>
+    <td><%= database.name %></td>
+    <td><%= database.description %></td>
+    <td><%= database.instance %></td>
+    <td><%= link_to 'Show', database %></td>
+    <td><%= link_to 'Edit', edit_database_path(database) %></td>
+    <td><%= link_to 'Destroy', database, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Database', new_database_path %>

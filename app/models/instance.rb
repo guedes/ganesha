@@ -1,5 +1,6 @@
 class Instance < ActiveRecord::Base
   belongs_to :server
+  has_many :databases
 
   validates_uniqueness_of :name
   validates_presence_of :name, :description, :server

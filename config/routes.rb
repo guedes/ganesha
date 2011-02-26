@@ -1,4 +1,6 @@
 Ganesha::Application.routes.draw do
+  resources :databases
+
   devise_for :admins
 
   resources :instances
