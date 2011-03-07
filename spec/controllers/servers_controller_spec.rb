@@ -125,7 +125,7 @@ describe ServersController do
 
     describe "success" do
       before(:each) do
-        @server_attr = { :name => "My New Server Name", :description => "My cool description", :host_address => "www.uol.com.br" }
+        @server_attr = { :name => "My New Server Name", :description => "My cool description", :host_address => "www.uol.local" }
       end
 
       it "should change the server's attributes" do
@@ -140,7 +140,7 @@ describe ServersController do
       end
 
       it "should have a flash message" do
-        @server_attr[:host_address] = "www.terra.com.br"
+        @server_attr[:host_address] = "www.terra.local"
         put :update, :id => @server, :server => @server_attr
         flash[:notice].should =~ /successfully updated/
       end

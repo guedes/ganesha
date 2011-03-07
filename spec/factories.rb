@@ -22,3 +22,10 @@ Factory.define :data_collector do |f|
   f.description "My Cool Data Collector :D"
   f.script "SELECT 1+1"
 end
+
+Factory.define :script do |f|
+  f.name "my_script"
+  f.description "My Cool Script :D"
+  f.script "SELECT 1+1"
+end
+

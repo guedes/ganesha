@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110307125406) do
+ActiveRecord::Schema.define(:version => 20110307143347) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                               :default => "", :null => false
@@ -74,6 +74,16 @@ ActiveRecord::Schema.define(:version => 20110307125406) do
 
   add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_histories_on_item_and_table_and_month_and_year"
 
+  create_table "scripts", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.text     "script"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "scripts", ["name"], :name => "index_scripts_on_name", :unique => true
+
   create_table "servers", :force => true do |t|
     t.string   "name"
     t.text     "description"
@@ -81,6 +91,16 @@ ActiveRecord::Schema.define(:version => 20110307125406) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "ip_address"
+  end
+
+  create_table "tables", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "database_id"
+    t.integer  "max_size"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.date     "expiration_date"
   end
 
 end
