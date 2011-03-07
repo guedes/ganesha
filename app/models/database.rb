@@ -1,4 +1,6 @@
 class Database < ActiveRecord::Base
+  has_many :data_collectors
+  has_many :scripts, :through => :data_collectors
   belongs_to :instance
 
   validates_presence_of :name, :description
