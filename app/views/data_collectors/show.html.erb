@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @data_collector.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @data_collector.description %>
+</p>
+
+<p>
+  <b>Script:</b>
+  <%= @data_collector.script %>
+</p>
+
+<p>
+  <b>Unit:</b>
+  <%= @data_collector.unit %>
+</p>
+
+
+<%= link_to 'Edit', edit_data_collector_path(@data_collector) %> |
+<%= link_to 'Back', data_collectors_path %>

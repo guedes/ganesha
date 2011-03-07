@@ -16,3 +16,9 @@ Factory.define :database do |f|
   f.description "My Cool Database :D"
   f.association :instance
 end
+
+Factory.define :data_collector do |f|
+  f.name "my_data_collector"
+  f.description "My Cool Data Collector :D"
+  f.script "SELECT 1+1"
+end

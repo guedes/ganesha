@@ -1,0 +1,24 @@
+<%= simple_form_for(@data_collector) do |f| %>
+  <% if @data_collector.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@data_collector.errors.count, "error") %> prohibited this data_collector from being saved:</h2>
+
+      <ul>
+      <% @data_collector.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="inputs">
+    <%= f.input :name %>
+    <%= f.input :description %>
+    <%= f.input :script %>
+    <%= f.input :unit %>
+  </div>
+
+  <div class="actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

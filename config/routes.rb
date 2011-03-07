@@ -1,4 +1,6 @@
 Ganesha::Application.routes.draw do
+  resources :data_collectors
+
   resources :databases
 
   devise_for :admins
