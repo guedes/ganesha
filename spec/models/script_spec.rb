@@ -15,4 +15,16 @@ describe Script do
 
     script_with_duplicate_name.should_not be_valid
   end
+
+  it "should recognize the type of script by slash bang" do
+    bash_script = Factory.build(:script, :script => "#!/bin/bash\necho Hello")
+    ruby_script = Factory.build(:script, :script => "#!/bin/env ruby\n10.times { puts 'Hello' }")
+    sql_script  = Factory(:script)
+    sql_script_starting_with_space = Factory(:script, :script => "    SELECT 2+2")
+
+    bash_script.type.should be_eql(ScriptType::BASH)
+    ruby_script.type.should be_eql(ScriptType::RUBY)
+    sql_script.type.should be_eql(ScriptType::SQL)
+    sql_script_starting_with_space.type.should be_eql(ScriptType::SQL)
+  end
 end
