@@ -1,7 +1,7 @@
 class Database < ActiveRecord::Base
+  belongs_to :instance
   has_many :data_collectors
   has_many :scripts, :through => :data_collectors
-  belongs_to :instance
 
   validates_presence_of :name, :description
   validates_uniqueness_of :name,  :scope => :instance_id
