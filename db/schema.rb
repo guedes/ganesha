@@ -96,14 +96,4 @@ ActiveRecord::Schema.define(:version => 20110307183753) do
     t.string   "ip_address"
   end
 
-  create_table "tables", :force => true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.integer  "database_id"
-    t.integer  "max_size"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.date     "expiration_date"
-  end
-
 end
