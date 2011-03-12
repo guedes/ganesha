@@ -1,13 +1,10 @@
 class DataCollector < ActiveRecord::Base
-  belongs_to :database
-  belongs_to :server
   belongs_to :script
+  belongs_to :targetable, :polymorphic => true
 
-  validates_presence_of :script_id
-  validates_presence_of :server_id, :unless => :database_id
-  validates_presence_of :database_id, :unless => :server_id
+  validates_presence_of :script, :targetable
 
   def name
-    "#{script.name} of #{database.name}"
+    "#{script.name} of #{targetable.name}"
   end
 end

@@ -1,6 +1,6 @@
 class Server < ActiveRecord::Base
   has_many :instances
-  has_many :data_collectors
+  has_many :data_collectors, :as => :targetable
   has_many :scripts, :through => :data_collectors
   
   before_save :populate_ip_address

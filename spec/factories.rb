@@ -19,8 +19,7 @@ end
 
 Factory.define :data_collector do |f|
   f.association :script
-  f.association :database
-  f.association :server
+  f.association :targetable, :factory => :database
 end
 
 Factory.define :script do |f|
