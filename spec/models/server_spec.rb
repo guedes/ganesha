@@ -52,7 +52,6 @@ describe Server do
       "google.com",
       "aol.com",
       "example.com",
-      "example.net",
       "postgresql.org"
     ]
 

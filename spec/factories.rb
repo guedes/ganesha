@@ -18,8 +18,6 @@ Factory.define :database do |f|
 end
 
 Factory.define :data_collector do |f|
-  f.sequence(:name) { |n|  "my_data_collector#{n}" }
-  f.description "My Cool Data Collector :D"
   f.association :script
   f.association :database
   f.association :server
