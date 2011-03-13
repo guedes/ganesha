@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110312023834) do
+ActiveRecord::Schema.define(:version => 20110312233740) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                               :default => "", :null => false
@@ -35,14 +35,11 @@ ActiveRecord::Schema.define(:version => 20110312023834) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "script_id"
-    t.integer  "server_id"
-    t.integer  "database_id"
     t.integer  "targetable_id"
     t.string   "targetable_type"
   end
 
   add_index "data_collectors", ["script_id"], :name => "index_data_collectors_on_script_id"
-  add_index "data_collectors", ["server_id"], :name => "index_data_collectors_on_server_id"
 
   create_table "databases", :force => true do |t|
     t.string   "name"

@@ -3,9 +3,6 @@
 <table>
   <tr>
     <th>Name</th>
-    <th>Description</th>
-    <th>Script</th>
-    <th>Unit</th>
     <th></th>
     <th></th>
     <th></th>
@@ -14,9 +11,6 @@
 <% @data_collectors.each do |data_collector| %>
   <tr>
     <td><%= data_collector.name %></td>
-    <td><%= data_collector.description %></td>
-    <td><%= data_collector.script %></td>
-    <td><%= data_collector.unit %></td>
     <td><%= link_to 'Show', data_collector %></td>
     <td><%= link_to 'Edit', edit_data_collector_path(data_collector) %></td>
     <td><%= link_to 'Destroy', data_collector, :confirm => 'Are you sure?', :method => :delete %></td>
