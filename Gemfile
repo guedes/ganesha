@@ -13,6 +13,8 @@ gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
 gem 'jquery-rails', '>=0.2.6'
 
 group :development, :test do
+  gem 'wirble'
+  gem 'ruby-debug19'
   gem 'webrat'
   gem 'rspec-rails', '>= 2.5'
   gem 'factory_girl_rails'
@@ -26,7 +28,6 @@ end
 
 # To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
 # gem 'ruby-debug'
-# gem 'ruby-debug19'
 
 # Bundle the extra gems:
 # gem 'bj'
