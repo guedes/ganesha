@@ -10,6 +10,7 @@ gem 'simple_form'
 gem 'net-ping', :require => 'net/ping'
 gem 'devise'
 gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
+gem 'jquery-rails', '>=0.2.6'
 
 group :development, :test do
   gem 'webrat'
