@@ -25,6 +25,7 @@ class ScriptsController < ApplicationController
   # GET /scripts/new.xml
   def new
     @script = Script.new
+    logger.info("new: #{@targetable}")
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,9 +42,14 @@ class ScriptsController < ApplicationController
   # POST /scripts.xml
   def create
     @script = Script.new(params[:script])
+    @targetables = params[:targetables]
+    logger.info("create: #{@targetable}")
 
     respond_to do |format|
       if @script.save
+        #FIXME: needs refactor for readability?
+        @script.data_collectors.create( @targetables.first.first.classify.constantize.find(@targetables.first.second).collect { |x| { :targetable => x } } )
+
         format.html { redirect_to(@script, :notice => 'Script was successfully created.') }
         format.xml  { render :xml => @script, :status => :created, :location => @script }
       else

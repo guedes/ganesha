@@ -15,7 +15,11 @@
     <%= f.input :name %>
     <%= f.input :description %>
     <%= f.input :script %>
-  </div>
+    <div class="input select required">
+      <% select_by_target_type %>
+    </div>
+
+ </div>
 
   <div class="actions">
     <%= f.button :submit %>

@@ -24,4 +24,7 @@
 
 <br />
 
-<%= link_to 'New Script', new_script_path %>
+New:
+<% [ 'database', 'instance', 'server' ].each do |script_type| %>
+  <%= link_to "#{script_type} script", :controller => 'scripts', :action => 'new', :targetable_type => script_type %> |
+<% end %>
