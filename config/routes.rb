@@ -1,7 +1,7 @@
 Ganesha::Application.routes.draw do
   resources :scripts
 
-  resources :data_collectors
+  resources :script_targets
 
   resources :databases
 

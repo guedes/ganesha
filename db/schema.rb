@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110312233740) do
+ActiveRecord::Schema.define(:version => 20110316022254) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                               :default => "", :null => false
@@ -30,16 +30,6 @@ ActiveRecord::Schema.define(:version => 20110312233740) do
 
   add_index "admins", ["email"], :name => "index_admins_on_email", :unique => true
   add_index "admins", ["reset_password_token"], :name => "index_admins_on_reset_password_token", :unique => true
-
-  create_table "data_collectors", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "script_id"
-    t.integer  "targetable_id"
-    t.string   "targetable_type"
-  end
-
-  add_index "data_collectors", ["script_id"], :name => "index_data_collectors_on_script_id"
 
   create_table "databases", :force => true do |t|
     t.string   "name"
@@ -73,10 +63,20 @@ ActiveRecord::Schema.define(:version => 20110312233740) do
 
   add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_histories_on_item_and_table_and_month_and_year"
 
+  create_table "script_targets", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "script_id"
+    t.integer  "targetable_id"
+    t.string   "targetable_type"
+  end
+
+  add_index "script_targets", ["script_id"], :name => "index_data_collectors_on_script_id"
+
   create_table "scripts", :force => true do |t|
     t.string   "name"
     t.text     "description"
-    t.text     "script"
+    t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

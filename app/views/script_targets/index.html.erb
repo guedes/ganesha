@@ -1,0 +1,23 @@
+<h1>Listing script_targets</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @script_targets.each do |script_target| %>
+  <tr>
+    <td><%= script_target.name %></td>
+    <td><%= link_to 'Show', script_target %></td>
+    <td><%= link_to 'Edit', edit_script_target_path(script_target) %></td>
+    <td><%= link_to 'Destroy', script_target, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Data collector', new_script_target_path %>

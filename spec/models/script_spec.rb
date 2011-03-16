@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 describe Script do
-  it "should validates presence of name, description and script" do
-    script = Factory.build(:script, :name => nil, :description => "", :script => nil)
+  it "should validates presence of name, description and content" do
+    script = Factory.build(:script, :name => nil, :description => "", :content => nil)
 
     script.should have(1).error_on(:name)
     script.should have(1).error_on(:description)
-    script.should have(1).error_on(:script)
+    script.should have(1).error_on(:content)
   end
 
   it "should require a unique name"  do
@@ -17,10 +17,10 @@ describe Script do
   end
 
   it "should recognize the type of script by slash bang" do
-    bash_script = Factory.build(:script, :script => "#!/bin/bash\necho Hello")
-    ruby_script = Factory.build(:script, :script => "#!/bin/env ruby\n10.times { puts 'Hello' }")
+    bash_script = Factory.build(:script, :content => "#!/bin/bash\necho Hello")
+    ruby_script = Factory.build(:script, :content => "#!/bin/env ruby\n10.times { puts 'Hello' }")
     sql_script  = Factory(:script)
-    sql_script_starting_with_space = Factory(:script, :script => "    SELECT 2+2")
+    sql_script_starting_with_space = Factory(:script, :content => "    SELECT 2+2")
 
     bash_script.type.should be_eql(ScriptType::BASH)
     ruby_script.type.should be_eql(ScriptType::RUBY)

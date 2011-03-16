@@ -17,7 +17,7 @@ Factory.define :database do |f|
   f.association :instance
 end
 
-Factory.define :data_collector do |f|
+Factory.define :script_target do |f|
   f.association :script
   f.association :targetable, :factory => :database
 end
@@ -25,6 +25,6 @@ end
 Factory.define :script do |f|
   f.sequence(:name) { |n| "my_script#{n}" }
   f.description "My Cool Script :D"
-  f.script "SELECT 1+1"
+  f.content "SELECT 1+1"
 end
 

@@ -1,6 +1,6 @@
 class Database < ActiveRecord::Base
   belongs_to :instance
-  has_many :data_collectors, :as => :targetable
+  has_many :script_targets, :as => :targetable
 
   validates_presence_of :name, :description
   validates_uniqueness_of :name,  :scope => :instance_id

@@ -1,5 +1,6 @@
-<p id="notice" class="notice"><%= notice %></div>
-
+<% if notice %>
+  <p id="notice" class="notice"><%= notice %></div>
+<% end %>
 <p>
   <b>Name:</b>
   <%= @script.name %>
@@ -12,7 +13,7 @@
 
 <p>
   <b>Script:</b>
-  <%= @script.script %>
+  <%= @script.content %>
 </p>
 
 

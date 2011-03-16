@@ -4,7 +4,6 @@
   <tr>
     <th>Name</th>
     <th>Description</th>
-    <th>Script</th>
     <th></th>
     <th></th>
     <th></th>
@@ -14,7 +13,6 @@
   <tr>
     <td><%= script.name %></td>
     <td><%= script.description %></td>
-    <td><%= script.script %></td>
     <td><%= link_to 'Show', script %></td>
     <td><%= link_to 'Edit', edit_script_path(script) %></td>
     <td><%= link_to 'Destroy', script, :confirm => 'Are you sure?', :method => :delete %></td>
@@ -22,9 +20,4 @@
 <% end %>
 </table>
 
-<br />
-
-New:
-<% [ 'database', 'instance', 'server' ].each do |script_type| %>
-  <%= link_to "#{script_type} script", :controller => 'scripts', :action => 'new', :targetable_type => script_type %> |
-<% end %>
+<%= link_to "New script", new_script_path %>

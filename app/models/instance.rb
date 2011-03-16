@@ -1,7 +1,7 @@
 class Instance < ActiveRecord::Base
   belongs_to :server
   has_many :databases
-  has_many :data_collectors, :as => :targetable
+  has_many :script_targets, :as => :targetable
 
   validates_uniqueness_of :name
   validates_presence_of :name, :description, :server

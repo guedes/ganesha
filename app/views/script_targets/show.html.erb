@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @script_target.name %>
+</p>
+
+<p>
+  <b>Script:</b>
+  <%= @script_target.script_name %>
+</p>
+
+<p>
+  <b><%= @script_target.targetable_type %>:</b>
+  <%= @script_target.targetable_name %>
+</p>
+
+
+<%= link_to 'Edit', edit_script_target_path(@script_target) %> |
+<%= link_to 'Back', script_targets_path %>

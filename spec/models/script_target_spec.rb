@@ -1,0 +1,31 @@
+require 'spec_helper'
+
+describe ScriptTarget do
+
+  it "should validates presence of target" do
+    valid_script_target = Factory(:script_target)
+    invalid_script_target = Factory.build(:script_target, :targetable => nil)
+
+    valid_script_target.should be_valid
+    invalid_script_target.should_not be_valid
+  end
+
+  it "should validates presence of script" do
+    script_target_without_script = Factory.build(:script_target, :script => nil)
+
+    script_target_without_script.should_not be_valid
+  end
+
+  it "should saves the correct object for targetable" do
+    script_target = Factory(:script_target)
+    script_target.targetable_type.should be_eql("Database")
+  end
+
+  it "should return a default name" do
+    script_target = Factory(:script_target)
+    expected_default_name = "#{script_target.script.name} of #{script_target.targetable.name}"
+
+    script_target.name.should be_eql(expected_default_name)
+  end
+
+end

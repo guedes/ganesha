@@ -1,0 +1,22 @@
+<%= simple_form_for(@script_target) do |f| %>
+  <% if @script_target.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@script_target.errors.count, "error") %> prohibited this script_target from being saved:</h2>
+
+      <ul>
+      <% @script_target.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="inputs">
+    <%= f.association :script %>
+    <%= f.association :database, :as => :check_boxes  %>
+  </div>
+
+  <div class="actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
