@@ -22,6 +22,16 @@ Factory.define :script_target do |f|
   f.association :targetable, :factory => :database
 end
 
+Factory.define :script_target_instance do |f|
+  f.association :script
+  f.association :targetable, :factory => :instance
+end
+
+Factory.define :script_target_server do |f|
+  f.association :script
+  f.association :targetable, :factory => :server
+end
+
 Factory.define :script do |f|
   f.sequence(:name) { |n| "my_script#{n}" }
   f.description "My Cool Script :D"

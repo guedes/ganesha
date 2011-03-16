@@ -16,6 +16,15 @@ describe ScriptTarget do
     script_target_without_script.should_not be_valid
   end
 
+  it "should validates uniqueness of script scoped by target" do
+    script_target = Factory(:script_target)
+    script_target_duplicated = Factory.build(:script_target, :script => script_target.script, :targetable => script_target.targetable)
+
+    script_target.should be_valid
+    script_target_duplicated.should_not be_valid
+    script_target_duplicated.should have(1).error_on(:script_id)
+  end
+
   it "should saves the correct object for targetable" do
     script_target = Factory(:script_target)
     script_target.targetable_type.should be_eql("Database")
@@ -23,7 +32,7 @@ describe ScriptTarget do
 
   it "should return a default name" do
     script_target = Factory(:script_target)
-    expected_default_name = "#{script_target.script.name} of #{script_target.targetable.name}"
+    expected_default_name = "#{script_target.script.name} on #{script_target.targetable.name}"
 
     script_target.name.should be_eql(expected_default_name)
   end

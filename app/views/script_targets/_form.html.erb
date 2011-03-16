@@ -4,16 +4,19 @@
       <h2><%= pluralize(@script_target.errors.count, "error") %> prohibited this script_target from being saved:</h2>
 
       <ul>
-      <% @script_target.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
+        <% @script_target.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
 
   <div class="inputs">
     <%= f.association :script %>
-    <%= f.association :database, :as => :check_boxes  %>
+    <%= f.simple_fields_for :targetable_attributes do |script_target| %>
+      <%= script_target.label :database %>
+      <%= script_target.collection_select :database, Database.all, :id, :name %>
+    <% end %>
   </div>
 
   <div class="actions">
