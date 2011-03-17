@@ -14,9 +14,9 @@
   <div class="inputs">
     <%= f.association :script %>
     <%= f.simple_fields_for :targetable_attributes, @script_target do |script_target| %>
-      <%= hidden_field_tag "script_target[targetable_attributes][targetable_type]", 'database' %>
-      <%= script_target.label :database %>
-      <%= script_target.collection_select :targetable_id, Database.all, :id, :name %>
+      <%= hidden_field_tag "script_target[targetable_attributes][targetable_type]", params[:targetable_type] %>
+      <%= script_target.label params[:targetable_type] %>
+      <%= script_target.collection_select :targetable_id, "database".classify.constantize.all, :id, :name %>
     <% end %>
   </div>
 

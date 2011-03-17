@@ -1,6 +1,7 @@
 Ganesha::Application.routes.draw do
   resources :scripts
 
+  match '/script_targets/:targetable_type/new', :to => 'script_targets#new'
   resources :script_targets
 
   resources :databases
