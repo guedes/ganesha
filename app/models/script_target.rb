@@ -14,8 +14,8 @@ class ScriptTarget < ActiveRecord::Base
   end
 
   def targetable_attributes=(targetable_attributes)
-     target_class = targetable_attributes.keys.first.classify.constantize
-     target_id    = targetable_attributes.values.first.to_i
+     target_class = targetable_attributes['targetable_type'].classify.constantize
+     target_id    = targetable_attributes['targetable_id'].to_i
      self.targetable   = target_class.find(target_id)
   end
 
