@@ -25,7 +25,7 @@ class ScriptTargetsController < ApplicationController
   end
 
   def update
-    @script_target = ScriptTarget.new(params[:script_target])
+    @script_target = ScriptTarget.find(params[:id])
     if @script_target.update_attributes(params[:script_target])
       flash[:notice] = 'Data collector was successfully updated.'
     end
