@@ -20,6 +20,8 @@ group :development, :test do
   gem 'factory_girl_rails'
 end
 
+gem 'simplecov', '>=0.3.8', :require => false, :group => :test 
+
 # Use unicorn as the web server
 # gem 'unicorn'
 
