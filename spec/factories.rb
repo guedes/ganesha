@@ -22,12 +22,12 @@ Factory.define :script_target do |f|
   f.association :targetable, :factory => :database
 end
 
-Factory.define :script_target_instance do |f|
+Factory.define :script_target_instance, :class => ScriptTarget do |f|
   f.association :script
   f.association :targetable, :factory => :instance
 end
 
-Factory.define :script_target_server do |f|
+Factory.define :script_target_server, :class => ScriptTarget do |f|
   f.association :script
   f.association :targetable, :factory => :server
 end

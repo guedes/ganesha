@@ -37,4 +37,25 @@ describe ScriptTarget do
     script_target.name.should be_eql(expected_default_name)
   end
 
+  it "should accepts a targetable_attributes and associate it correctly" do
+    database = Factory(:database)
+    instance = Factory(:instance)
+
+    script_target_database = Factory(:script_target)
+    script_target_instance = Factory(:script_target_instance)
+
+    script_target_database.targetable.should_not be_eql(database)
+    script_target_instance.targetable.should_not be_eql(instance)
+
+    script_target_database.targetable_attributes = {"targetable_type"=>"database", "targetable_id"=>database.id}
+
+    script_target_instance.targetable_attributes = {"targetable_type"=>"instance", "targetable_id"=>instance.id}
+
+    script_target_database.targetable.should be_eql(database)
+    script_target_instance.targetable.should be_eql(instance)
+
+    script_target_database.should be_valid
+    script_target_instance.should be_valid
+  end
+
 end
