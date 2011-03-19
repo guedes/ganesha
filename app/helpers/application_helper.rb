@@ -2,7 +2,7 @@ module ApplicationHelper
 
   def targetable_type
     #OPTIMIZE: measure the impact of this code
-    params[:targetable_type] || (@script_target && @script_target.targetable_type.downcase) || "database"
+    params[:targetable_type] || (@script_target.targetable_type && @script_target.targetable_type.downcase) || "database"
   end
 
   def valid_target_type?
