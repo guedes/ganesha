@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110316022254) do
+ActiveRecord::Schema.define(:version => 20110319222705) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                               :default => "", :null => false
@@ -50,6 +50,8 @@ ActiveRecord::Schema.define(:version => 20110316022254) do
     t.datetime "updated_at"
   end
 
+  add_index "instances", ["server_id"], :name => "index_instances_on_server_id"
+
   create_table "rails_admin_histories", :force => true do |t|
     t.string   "message"
     t.string   "username"
@@ -72,6 +74,7 @@ ActiveRecord::Schema.define(:version => 20110316022254) do
   end
 
   add_index "script_targets", ["script_id"], :name => "index_data_collectors_on_script_id"
+  add_index "script_targets", ["targetable_id", "targetable_type"], :name => "index_script_targets_on_targetable_id_and_targetable_type"
 
   create_table "scripts", :force => true do |t|
     t.string   "name"
