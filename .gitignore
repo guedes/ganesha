@@ -4,3 +4,5 @@ log/*.log
 tmp/**/*
 coverage
 *.sw?
+tmp
+rails_best_practices_output.html
