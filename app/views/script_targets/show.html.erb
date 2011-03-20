@@ -1,20 +1,16 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Name:</b>
+<h2>
   <%= @script_target.name %>
-</p>
+</h2>
 
-<p>
-  <b>Script:</b>
-  <%= @script_target.script_name %>
+This configuration associates the script 
+<%= link_to @script_target.script_name, @script_target.script %>
+to the
+<b>
+  <%= @script_target.targetable_type.downcase %>
+</b> 
+called 
+<%= link_to @script_target.targetable_name, @script_target.targetable %>.
 </p>
-
-<p>
-  <b><%= @script_target.targetable_type %>:</b>
-  <%= @script_target.targetable_name %>
-</p>
-
 
 <%= link_to 'Edit', edit_script_target_path(@script_target) %> |
 <%= link_to 'Back', script_targets_path %>
