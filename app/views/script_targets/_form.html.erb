@@ -12,11 +12,11 @@
   <% end %>
 
   <div class="inputs">
-    <%= f.association :script %>
+    <%= f.association :script, :collection => expected_scripts, :prompt => "Choose the script" %>
     <%= f.simple_fields_for :targetable_attributes, @script_target do |script_target| %>
       <%= hidden_field_tag "script_target[targetable_attributes][targetable_type]", targetable_type %>
       <%= script_target.label targetable_type %>
-      <%= script_target.collection_select :targetable_id, expected_targets, :id, :name %>
+      <%= script_target.collection_select :targetable_id, expected_targets, :id, :name, :prompt => "Choose the #{targetable_type}" %>
     <% end %>
   </div>
 

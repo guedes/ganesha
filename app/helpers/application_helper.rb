@@ -2,7 +2,20 @@ module ApplicationHelper
 
   def targetable_type
     #OPTIMIZE: measure the impact of this code
-    params[:targetable_type] || (@script_target.targetable_type && @script_target.targetable_type.downcase) || "database"
+    params[:targetable_type] ||
+    (params[:script_target] && params[:script_target][:targetable_attributes][:targetable_type]) ||
+    (@script_target.targetable_type && @script_target.targetable_type.downcase) ||
+    "database"
+  end
+
+  def expected_scripts
+    if ['database', 'instance'].include?(targetable_type)
+      Script.type_is(ScriptType::SQL)
+    elsif targetable_type == 'server'
+      Script.type_is_not(ScriptType::SQL)
+    elsif @script_target.script
+      Script.type_is(@script_target.script.type)
+    end
   end
 
   def valid_target_type?
