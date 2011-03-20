@@ -1,4 +1,4 @@
-<h1>Listing script_targets</h1>
+<h1>Listing target configuration of scripts</h1>
 
 <table>
   <tr>
@@ -10,7 +10,12 @@
 
 <% @script_targets.each do |script_target| %>
   <tr>
-    <td><%= script_target.name %></td>
+    <td>
+      <%= link_to script_target.script_name, script_target.script %>
+      will run on
+      <%= script_target.targetable_type.downcase %>
+      <%= link_to script_target.targetable.name, script_target.targetable %>
+    </td>
     <td><%= link_to 'Show', script_target %></td>
     <td><%= link_to 'Edit', edit_script_target_path(script_target) %></td>
     <td><%= link_to 'Destroy', script_target, :confirm => 'Are you sure?', :method => :delete %></td>
