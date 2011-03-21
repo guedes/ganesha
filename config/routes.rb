@@ -1,5 +1,6 @@
 Ganesha::Application.routes.draw do
   devise_for :admins
+  mount Resque::Server.new, :at => "/resque"
 
   resources :scripts
   
