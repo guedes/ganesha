@@ -20,14 +20,14 @@ class ScriptTargetsController < ApplicationController
 
   def create
     @script_target = ScriptTarget.new(params[:script_target])
-    flash[:notice] = 'Data collector was successfully created.' if @script_target.save
+    flash[:notice] = 'Script successfully associated.' if @script_target.save
     respond_with @script_target
   end
 
   def update
     @script_target = ScriptTarget.find(params[:id])
     if @script_target.update_attributes(params[:script_target])
-      flash[:notice] = 'Data collector was successfully updated.'
+      flash[:notice] = 'Configuration was successfully updated.'
     end
 
     respond_with @script_target
@@ -37,7 +37,7 @@ class ScriptTargetsController < ApplicationController
     @script_target = ScriptTarget.find(params[:id])
     @script_target.destroy
 
-    flash[:notice] = 'Data collector was successfully destroyed.'
+    flash[:notice] = 'Configuration was successfully destroyed.'
 
     respond_with @script_target
   end

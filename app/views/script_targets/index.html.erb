@@ -20,7 +20,7 @@
     </td>
     <td><%= link_to 'Show', script_target %></td>
     <td><%= link_to 'Edit', edit_script_target_path(script_target) %></td>
-    <td><%= link_to 'Destroy', script_target, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Destroy', script_target_path(script_target, :destroy => true), :confirm => "Are you sure you want do destroy this?", :method => :delete %></td>
   </tr>
 <% end %>
 </table>

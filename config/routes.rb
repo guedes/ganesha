@@ -1,14 +1,15 @@
 Ganesha::Application.routes.draw do
-  resources :scripts
-
-  match '/script_targets/:targetable_type/new', :to => 'script_targets#new', :as => :new_targetable
-  resources :script_targets
-
-  resources :databases
-
   devise_for :admins
 
+  resources :scripts
+  
+  resources :script_targets
+  match '/script_targets/:targetable_type/new', :to => 'script_targets#new', :as => :new_targetable
+  
+  resources :databases
+  
   resources :instances
+  
   resources :servers
 
   root :to => "servers#index"

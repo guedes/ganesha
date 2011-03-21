@@ -1,0 +1,11 @@
+<%= simple_form_for object_to_delete, :html => { :method => :delete  } do |f| %>
+  <p class=notice>
+    Are you <b>sure</b> you want 
+    to <b>destroy</b> this <%= object_to_delete.class.to_s.tableize.humanize %>?
+  </p>
+  <p>
+    <%= submit_tag "Destroy" %>
+    or 
+    <%= link_to "Cancel", polymorphic_path(object_to_delete) %>
+  </p>
+<% end %>
