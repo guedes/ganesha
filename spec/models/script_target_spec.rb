@@ -47,9 +47,9 @@ describe ScriptTarget do
     script_target_database.targetable.should_not be_eql(database)
     script_target_instance.targetable.should_not be_eql(instance)
 
-    script_target_database.targetable_attributes = {"targetable_type"=>"database", "targetable_id"=>database.id}
+    script_target_database.targetable_attributes = {"targetable_type"=>"database", "targetable_id"=>database.id.to_s}
 
-    script_target_instance.targetable_attributes = {"targetable_type"=>"instance", "targetable_id"=>instance.id}
+    script_target_instance.targetable_attributes = {"targetable_type"=>"instance", "targetable_id"=>instance.id.to_s}
 
     script_target_database.targetable.should be_eql(database)
     script_target_instance.targetable.should be_eql(instance)
