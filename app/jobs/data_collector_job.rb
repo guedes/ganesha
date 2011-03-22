@@ -10,8 +10,10 @@ class DataCollectorJob
     if st.script.type == ScriptType::SQL
       puts "Executing #{st.name}"
       a = self.select(st)
-      puts a.to_yaml
+      a = ActiveSupport::JSON.encode(a)
       puts "Executed"
+      puts a
+      a
     end
   end
 
