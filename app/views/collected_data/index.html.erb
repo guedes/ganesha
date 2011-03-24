@@ -3,23 +3,15 @@
 <table>
   <tr>
     <th>Script target</th>
-    <th>Result</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Executed at</th>
   </tr>
 
 <% @collected_data.each do |collected_datum| %>
   <tr>
-    <td><%= collected_datum.script_target %></td>
-    <td><%= collected_datum.result %></td>
-    <td><%= link_to 'Show', collected_datum %></td>
-    <td><%= link_to 'Edit', edit_collected_datum_path(collected_datum) %></td>
-    <td><%= link_to 'Destroy', collected_datum, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to collected_datum.script_target.name, collected_datum %></td>
+    <td><%= collected_datum.created_at %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
-
-<%= link_to 'New Collected datum', new_collected_datum_path %>

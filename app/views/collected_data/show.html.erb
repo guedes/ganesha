@@ -1,15 +1,12 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Script target:</b>
-  <%= @collected_datum.script_target %>
+  <h2><%= @collected_datum.script_target.name %></h2>
 </p>
 
-<p>
-  <b>Result:</b>
-  <%= @collected_datum.result %>
+It rans on <%= @collected_datum.created_at %> and returns:
+<hr>
+  <% show_formated_collected_data %>
 </p>
 
-
-<%= link_to 'Edit', edit_collected_datum_path(@collected_datum) %> |
-<%= link_to 'Back', collected_datas_path %>
+<%= link_to 'Back', collected_data_path %>
