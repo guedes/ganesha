@@ -1,5 +1,5 @@
 class Server < ActiveRecord::Base
-  has_many :instances
+  has_many :instances, :dependent => :destroy
   has_many :script_targets, :as => :targetable
   has_many :scripts, :through => :script_targets
 

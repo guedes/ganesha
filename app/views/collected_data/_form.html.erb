@@ -1,0 +1,22 @@
+<%= simple_form_for(@collected_datum) do |f| %>
+  <% if @collected_datum.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@collected_datum.errors.count, "error") %> prohibited this collected_datum from being saved:</h2>
+
+      <ul>
+      <% @collected_datum.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="inputs">
+    <%= f.association :script_target %>
+    <%= f.input :result %>
+  </div>
+
+  <div class="actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

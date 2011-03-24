@@ -1,0 +1,25 @@
+<h1>Listing collected_datas</h1>
+
+<table>
+  <tr>
+    <th>Script target</th>
+    <th>Result</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @collected_data.each do |collected_datum| %>
+  <tr>
+    <td><%= collected_datum.script_target %></td>
+    <td><%= collected_datum.result %></td>
+    <td><%= link_to 'Show', collected_datum %></td>
+    <td><%= link_to 'Edit', edit_collected_datum_path(collected_datum) %></td>
+    <td><%= link_to 'Destroy', collected_datum, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Collected datum', new_collected_datum_path %>

@@ -2,6 +2,8 @@ class ScriptTarget < ActiveRecord::Base
   belongs_to :script
   belongs_to :targetable, :polymorphic => true
 
+  has_many :collected_data, :dependent => :destroy
+
   validates_presence_of :script, :targetable
 
   validates_uniqueness_of :script_id, :scope => [ :targetable_id, :targetable_type ]

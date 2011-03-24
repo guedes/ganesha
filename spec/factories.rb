@@ -38,3 +38,7 @@ Factory.define :script do |f|
   f.content "SELECT 1+1"
 end
 
+Factory.define :collected_datum do |f|
+  f.association :script_target
+  f.result [{"count"=>"6"}].to_yaml
+end

@@ -8,16 +8,26 @@ class DataCollectorJob
   def self.perform(script_target_id)
     st = ScriptTarget.find(script_target_id)
     if st.script.type == ScriptType::SQL
-      puts "Executing #{st.name}"
-      a = self.select(st)
-      a = ActiveSupport::JSON.encode(a)
-      puts "Executed"
-      puts a
-      a
+      self.log("Collecting #{st.name}")
+
+      cd = CollectedDatum.create!({
+        :script_target => st,
+        :result => self.select(st)
+      })
+
+      self.log("Finished collecting #{st.name}")
+      cd.result
     end
   end
 
   private
+    def self.log(text)
+      text = "[ #{Time.now} ]: #{text}"
+
+      puts text
+      Rails.logger.info text
+    end
+
     def self.select(st)
       self.connection(self.build_options(st)).select_all(st.script.content)
     end

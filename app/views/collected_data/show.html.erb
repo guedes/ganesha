@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Script target:</b>
+  <%= @collected_datum.script_target %>
+</p>
+
+<p>
+  <b>Result:</b>
+  <%= @collected_datum.result %>
+</p>
+
+
+<%= link_to 'Edit', edit_collected_datum_path(@collected_datum) %> |
+<%= link_to 'Back', collected_datas_path %>
