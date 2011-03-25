@@ -14,6 +14,7 @@ gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
 gem 'jquery-rails', '>=0.2.6'
 gem 'resque', :require => "resque/server"
 gem 'kaminari'
+gem 'whenever', :require => false
 
 group :development, :test do
   gem 'wirble'

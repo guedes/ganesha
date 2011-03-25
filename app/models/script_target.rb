@@ -1,8 +1,8 @@
 class ScriptTarget < ActiveRecord::Base
-  belongs_to :script
+  belongs_to :script, :include => true
   belongs_to :targetable, :polymorphic => true
 
-  has_many :collected_data, :dependent => :destroy
+  has_many :collected_data, :dependent => :destroy, :include => true
 
   validates_presence_of :script, :targetable
 
