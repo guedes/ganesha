@@ -13,6 +13,7 @@ gem 'devise'
 gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
 gem 'jquery-rails', '>=0.2.6'
 gem 'resque', :require => "resque/server"
+gem 'kaminari'
 
 group :development, :test do
   gem 'wirble'

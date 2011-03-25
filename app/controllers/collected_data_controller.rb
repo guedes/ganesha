@@ -2,7 +2,7 @@ class CollectedDataController < ApplicationController
   # GET /collected_data
   # GET /collected_data.xml
   def index
-    @collected_data = CollectedDatum.order("created_at DESC")
+    @collected_data = CollectedDatum.order("created_at DESC").page(params[:page]).per(10)
 
     respond_to do |format|
       format.html # index.html.erb

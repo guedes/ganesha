@@ -3,7 +3,7 @@ class ScriptTargetsController < ApplicationController
 
   def index
     @script_target = ScriptTarget.new
-    respond_with @script_targets = ScriptTarget.all
+    respond_with @script_targets = ScriptTarget.page(params[:page]).per(10)
   end
 
   def show
