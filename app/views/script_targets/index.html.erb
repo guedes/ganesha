@@ -10,6 +10,7 @@
     <th></th>
     <th></th>
     <th></th>
+    <th></th>
   </tr>
 
 <% @script_targets.each do |script_target| %>
@@ -21,6 +22,7 @@
       <%= link_to script_target.targetable.name, script_target.targetable %>
     </td>
     <td><%= link_to 'Show', script_target %></td>
+    <td><%= link_to 'Chart it!', chart_path(script_target) %></td>
     <td><%= link_to 'Edit', edit_script_target_path(script_target) %></td>
     <td><%= link_to 'Destroy', script_target_path(script_target, :destroy => true), :confirm => "Are you sure you want do destroy this?", :method => :delete %></td>
   </tr>

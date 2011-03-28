@@ -22,4 +22,65 @@ class ScriptTarget < ActiveRecord::Base
       self.targetable   = target_class.find(target_id)
     end
   end
+
+  def normalized_collected_data(date_start=nil, date_end=nil)
+    date_start ||= 20.days.ago
+    date_end   ||= Time.now
+
+    # first version collected_data.where(:created_at => date_start..date_end).collect { |cd| { :executed_at => cd.created_at, :key => cd.result[0].keys[0] , :value => cd.result[0].values[0].to_f } }
+    #    collected_data.where(:created_at => date_start..date_end).collect { |cd| { :executed_at => cd.created_at, :result => cd.result.collect { |r| { r[r.keys[0]] => r.values[1] } } } }
+    if collected_data.first.result.count > 1
+      collected_data.collect do |cd|
+        {
+          :executed_at => cd.created_at,
+          :result => cd.result.collect do |r|
+          { r[r.keys[0]] => r.values[1] }
+          end
+        }
+      end
+    else
+      collected_data.collect do |cd|
+        {
+          :executed_at => cd.created_at,
+          :result => cd.result
+        }
+      end
+    end
+  end
+
+  def chartified_data(date_start=nil, date_end=nil)
+    result = { }
+    normalized_collected_data.each do |nm|
+      executed_at = nm[:executed_at]
+      nm[:result].each do |nr|
+        nr.each_pair do |key,value|
+          result[key] ||= []
+          result[key] << [ executed_at.to_i * 1000, value.to_f ]
+        end
+      end
+    end
+    chartified = [ ]
+    result.each_pair do |key,value|
+      chartified << { label: key, data: value }
+    end
+    chartified
+  end
+
+
+  def chartified_data2(date_start=nil, date_end=nil)
+    date_start ||= 1.hour.ago
+    date_end   ||= Time.now
+
+
+    {
+      #label: name,
+      data: normalized_collected_data(date_start, date_end).collect { |nd| [ nd[:executed_at].to_i * 1000, nd[:value] ] }
+    }
+
+    # first version
+    #    {
+    #      #label: name,
+    #      data: normalized_collected_data(date_start, date_end).collect { |nd| [ nd[:executed_at].to_i * 1000, nd[:value] ] }
+    #    }
+  end
 end

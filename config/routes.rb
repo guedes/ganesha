@@ -1,4 +1,6 @@
 Ganesha::Application.routes.draw do
+  match "charts/:id", :to => "charts#show", :as => :chart
+
   resources :collected_data, :only => [ :index, :show ]
 
   devise_for :admins
