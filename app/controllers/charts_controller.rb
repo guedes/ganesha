@@ -3,7 +3,7 @@ class ChartsController < ApplicationController
     @script_target = ScriptTarget.find(params[:id])
     respond_to do |format|
       format.html
-      format.json { render :text => @script_target.chartified_data.to_json }
+      format.json { render :json => @script_target.chartified_data(params[:date_start], params[:date_end]) }
     end
   end
 end

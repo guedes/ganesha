@@ -23,14 +23,15 @@ class ScriptTarget < ActiveRecord::Base
     end
   end
 
-  def normalized_collected_data(date_start=nil, date_end=nil)
-    date_start ||= 20.days.ago
-    date_end   ||= Time.now
+  def normalized_collected_data(date_start="", date_end="")
+    date_start = 1.hours.ago if date_start.empty?
+    date_end   = Time.now if date_end.empty?
 
-    # first version collected_data.where(:created_at => date_start..date_end).collect { |cd| { :executed_at => cd.created_at, :key => cd.result[0].keys[0] , :value => cd.result[0].values[0].to_f } }
-    #    collected_data.where(:created_at => date_start..date_end).collect { |cd| { :executed_at => cd.created_at, :result => cd.result.collect { |r| { r[r.keys[0]] => r.values[1] } } } }
+    date_start = date_start.to_datetime
+    date_end = date_end.to_datetime
+
     if collected_data.first.result.count > 1
-      collected_data.collect do |cd|
+      collected_data.where(:created_at => date_start..date_end).collect do |cd|
         {
           :executed_at => cd.created_at,
           :result => cd.result.collect do |r|
@@ -39,7 +40,7 @@ class ScriptTarget < ActiveRecord::Base
         }
       end
     else
-      collected_data.collect do |cd|
+      collected_data.where(:created_at => date_start..date_end).collect do |cd|
         {
           :executed_at => cd.created_at,
           :result => cd.result
@@ -50,7 +51,7 @@ class ScriptTarget < ActiveRecord::Base
 
   def chartified_data(date_start=nil, date_end=nil)
     result = { }
-    normalized_collected_data.each do |nm|
+    normalized_collected_data(date_start, date_end).each do |nm|
       executed_at = nm[:executed_at]
       nm[:result].each do |nr|
         nr.each_pair do |key,value|
@@ -61,7 +62,8 @@ class ScriptTarget < ActiveRecord::Base
     end
     chartified = [ ]
     result.each_pair do |key,value|
-      chartified << { label: key, data: value }
+      #chartified << { label: key, data: value }
+      chartified << { data: value }
     end
     chartified
   end
