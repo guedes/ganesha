@@ -27,8 +27,14 @@ class ScriptTarget < ActiveRecord::Base
     date_start = 1.hours.ago if date_start.empty?
     date_end   = Time.now if date_end.empty?
 
-    date_start = date_start.to_datetime.at_midnight
-    date_end = date_end.to_datetime + 1.day - 1.second
+    #date_start = date_start.to_datetime.at_midnight
+    #date_end = date_end.to_datetime + 1.day - 1.second
+
+    date_start = date_start.to_datetime
+    date_end = date_end.to_datetime
+
+    Rails.logger.info(date_start)
+    Rails.logger.info(date_end)
 
     if collected_data.first.result.count > 1
       collected_data.where(:created_at => date_start..date_end).collect do |cd|
@@ -56,7 +62,11 @@ class ScriptTarget < ActiveRecord::Base
       nm[:result].each do |nr|
         nr.each_pair do |key,value|
           result[key] ||= []
-          result[key] << [ (executed_at - 3.hours).to_i * 1000, value.to_f ]
+          # yes.. pretty weird this forced-timezone but
+          # it will be there here until i move it to
+          # flot javascript
+          #result[key] << [ (executed_at - 3.hours).to_i * 1000, value.to_f ]
+          result[key] << [ (executed_at).to_i * 1000, value.to_f ]
         end
       end
     end

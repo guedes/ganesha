@@ -1,130 +1,150 @@
 <% content_for :scripts do %>
-  <script language="javascript" type="text/javascript" src="http://people.iola.dk/olau/flot/jquery.flot.js"></script>
-  <script language="javascript" type="text/javascript" src="http://people.iola.dk/olau/flot/jquery.flot.selection.js"></script>
-  <script language="javascript" type="text/javascript" src="http://people.iola.dk/olau/flot/jquery.flot.navigate.js"></script>
+  <%= javascript_include_tag "jquery-ui-timepicker-addon.js" %>
+  <%= javascript_include_tag "http://people.iola.dk/olau/flot/jquery.flot.js" %>
+  <%= javascript_include_tag "http://people.iola.dk/olau/flot/jquery.flot.selection.js" %>
+  <%= javascript_include_tag "http://people.iola.dk/olau/flot/jquery.flot.navigate.js" %>
 <% end %>
 
 <div id="chart-title" style="width:600px;">
-  <center><h2><%= @script_target.name %></h2></center>
+  <center><h2><%= @script_target.name %></h2>
+    <%= form_tag :chart, :method => :get do |f| %>
+      <%= label_tag :date_start, 'From:' %>
+      <%= text_field_tag :date_start, params[:date_start] %>
+
+      <%= label_tag :date_end, 'To:' %>
+      <%= text_field_tag :date_end, params[:date_end] %>
+
+      <%= submit_tag "Chart it!" %>
+    <% end %>
+  </center>
 </div>
 <div id="chart" style="width:600px;height:300px;"></div>
-<p class="message"></p>
-
-<%= form_tag :chart, :method => :get do |f| %>
-  <%= label_tag :date_start %>
-  <%= text_field_tag :date_start, ( params[:date_start] ? params[:date_start].to_date : 1.day.ago.to_date )  %><br />
-
-  <%= label_tag :date_end %>
-  <%= text_field_tag :date_end, ( params[:date_end] ? params[:date_end].to_date : Time.now.at_midnight.to_date )  %><br />
-
-  <%= submit_tag "Chart it!" %>
-<% end  %>
-
 
 <script type="text/javascript">
-  $(function () {
-      //
-      // helper functions
-      //
+$(function () {
+    //
+    // helper functions
+    //
 
-      // function for returning the weekends in a period
-      function weekendAreas(axes) {
-        var markings = [];
-        var d = new Date(axes.xaxis.min);
-        // go to the first Saturday
-        d.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 1) % 7))
-        d.setUTCSeconds(0);
-        d.setUTCMinutes(0);
-        d.setUTCHours(0);
-        var i = d.getTime();
-        do {
-            // when we don't set yaxis, the rectangle automatically
-            // extends to infinity upwards and downwards
-            markings.push({ xaxis: { from: i, to: i + 2 * 24 * 60 * 60 * 1000 } });
-            i += 7 * 24 * 60 * 60 * 1000;
-        } while (i < axes.xaxis.max);
+    // function for returning the weekends in a period
+    function weekendAreas(axes) {
+      var markings = [];
+      var d = new Date(axes.xaxis.min);
+      // go to the first Saturday
+      d.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 1) % 7))
+      d.setUTCSeconds(0);
+      d.setUTCMinutes(0);
+      d.setUTCHours(0);
+      var i = d.getTime();
+      do {
+          // when we don't set yaxis, the rectangle automatically
+          // extends to infinity upwards and downwards
+          markings.push({ xaxis: { from: i, to: i + 2 * 24 * 60 * 60 * 1000 } });
+          i += 7 * 24 * 60 * 60 * 1000;
+      } while (i < axes.xaxis.max);
 
-        return markings;
+      return markings;
+    }
+
+    // function for formating date
+    function formatDateAsString(date) {
+      var day   = date.getUTCDate();
+      var month = date.getUTCMonth()+1;
+      var year  = date.getFullYear();
+      var hour  = date.getUTCHours(0);
+      var min   = date.getUTCMinutes(0);
+      var sec   = date.getUTCSeconds(0);
+
+      return year + "-" + month + "-" + day + " " + hour + ":" + min + ":" + sec;
+    }
+
+    //
+    // declaring vars
+    //
+    var dateStart = "<%= params[:date_start] %>";
+    var dateEnd   = "<%= params[:date_end] %>";
+
+    var data = [ ];
+    var chart = $("#chart");
+    var panned = false;
+    var defaultFetchDataInterval = 5 * 60 * 1000
+
+    var options = {
+      xaxis: { 
+          mode: "time",
+          minTickSize: [10, "minute"],
+          timeformat: "%y/%0m/%0d<br/>%H:%M:%S"
+      },
+      zoom: { interactive: true  },
+      pan: {  interactive: true },
+      series: {
+          lines: { show: true },
+          points: { show: true }
+      },
+      grid: { 
+          markings: weekendAreas,
+          hoverable: true
       }
+    }
 
-      // function for formating date
-      function formatDateAsString(date) {
-        var day   = date.getUTCDate();
-        var month = date.getUTCMonth()+1;
-        var year  = date.getFullYear();
-        return year + "-" + month + "-" + day;
-      }
+    // initializing plot
+    var plot = $.plot(chart, data, options);
 
-      //
-      // declaring vars
-      //
-      var dateStart = "<%= params[:date_start] %>";
-      var dateEnd   = "<%= params[:date_end] %>";
-
-      var data = [ ];
-      var chart = $("#chart");
-      var options = {
-        xaxis: { 
-            mode: "time",
-            minTickSize: [15, "minute"],
-            timeformat: "%y/%0m/%0d<br/>%H:%M:%S"
-        },
-        zoom: {
-            interactive: true
-        },
-        pan: {
-            interactive: true
-        },
-        series: {
-            lines: { show: true },
-            points: { show: true }
-        },
-        grid: { markings: weekendAreas }
-      }
-
-      // initializing plot
-      var plot = $.plot(chart, data, options);
-
-      // a function to fetch data in json format
-      function fetchData() {
-        data = [];
-        function onDataReceived(series) {
-          //alert(series.length);
+    // a function to fetch data in json format
+    function fetchData() {
+      function onDataReceived(series) {
+        // only push if there are series...
+        if (series.length > 0) { 
+          data = [];
           for (var i = 0; i < series.length; i++) {
             data.push(series[i]);
           }
-          plot = $.plot(chart, data, options);
-          setTimeout(fetchData, 60 * 1000);
         }
 
-        // do the request in an ajax way
-        $.ajax({
-          url: "<%= chart_path(@script_target, :format => :json) %>",
-          method: "GET",
-          data: { date_start: dateStart, date_end: dateEnd },
-          dataType: "json",
-          success: onDataReceived
-          });
+        plot = $.plot(chart, data, options);
+
+        if (!panned) {
+          setTimeout(fetchData,  defaultFetchDataInterval);
+        } else {
+          panned = false;
+        }
       }
 
-      // 
-      // bindings
-      //
+      // do the request in an ajax way
+      $.ajax({
+        url: "<%= chart_path(@script_target, :format => :json) %>",
+        method: "GET",
+        data: { date_start: dateStart, date_end: dateEnd },
+        dataType: "json",
+        success: onDataReceived
+        });
+    }
 
-      // bindig for padding
-      chart.bind('plotpan', function (event, plot) {
-        var axes = plot.getAxes();
-        dateStart = formatDateAsString(new Date(axes.xaxis.min))
-        dateEnd   = formatDateAsString(new Date(axes.xaxis.max))
+    // 
+    // bindings
+    //
 
-        $(".message").html("From: " + dateStart + " to " + dateEnd);
-      });
+    // bind for fetch new date after padding
+    chart.bind('mouseup', function(event) {
+      fetchData();   
+    });
+    // bind for padding
+    chart.bind('plotpan', function (event, plot) {
+      var axes = plot.getAxes();
+      dateStart = formatDateAsString(new Date(axes.xaxis.min))
+      dateEnd   = formatDateAsString(new Date(axes.xaxis.max))
 
-      // finally start to fetch the data
-      setTimeout(fetchData,100);
+      $("#date_start").val(dateStart);
+      $("#date_end").val(dateEnd);
 
-      // configuring date picker controls
-      $("#date_start").datepicker({"dateFormat": 'yy-mm-dd'});
-      $("#date_end").datepicker({"dateFormat": 'yy-mm-dd'});
+      panned = true;
+    });
+
+    // finally start to fetch the data
+    setTimeout(fetchData,100);
+
+    // configuring date picker controls
+    $("#date_start").datetimepicker({"dateFormat": 'yy-mm-dd', hourGrid: 4, minuteGrid: 10 });
+    $("#date_end").datetimepicker({"dateFormat": 'yy-mm-dd', hourGrid: 4, minuteGrid: 10 });
 });
 </script>
