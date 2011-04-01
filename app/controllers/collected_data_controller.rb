@@ -20,20 +20,4 @@ class CollectedDataController < ApplicationController
       format.xml  { render :xml => @collected_datum }
     end
   end
-
-  # POST /collected_data
-  # POST /collected_data.xml
-  def create
-    @collected_datum = CollectedDatum.new(params[:collected_datum])
-
-    respond_to do |format|
-      if @collected_datum.save
-        format.html { redirect_to(@collected_datum, :notice => 'Collected datum was successfully created.') }
-        format.xml  { render :xml => @collected_datum, :status => :created, :location => @collected_datum }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @collected_datum.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
 end
